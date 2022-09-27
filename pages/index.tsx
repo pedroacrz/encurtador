@@ -60,12 +60,12 @@ const Home: NextPage = () => {
           </Box>
 
           <Box as="section">
-            {mockUrls.map(url => {
+            {mockUrls.map((url, index) => {
               return (
-                <Box backgroundColor="default.white" color="default.zinc" mt="5" width="100%" height="45px" borderRadius="6" display="flex" justifyContent="space-between" alignItems="center" px="10">
-                  <Text fontWeight="semibold">https://google.com</Text>
+                <Box key={index} backgroundColor="default.white" color="default.zinc" mt="5" width="100%" height="45px" borderRadius="6" display="flex" justifyContent="space-between" alignItems="center" px="10">
+                  <Text fontWeight="semibold">{url.url}</Text>
                   <Box display="flex" alignItems="center">
-                    <Text mr="5" fontWeight="bold" color="default.primary">https://encurtador/Ax3A9t</Text>
+                    <Text mr="5" fontWeight="bold" color="default.primary">{url.shortened}</Text>
                     <Button backgroundColor="default.primary" width="100px" height="32px" color="default.white">Copiar</Button>
                   </Box>
                 </Box>
