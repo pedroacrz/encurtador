@@ -1,7 +1,6 @@
 import { Box, Text, Grid, GridItem, Input, Button, useQuery } from "@chakra-ui/react"
 import type { NextPage } from "next"
 import Head from "next/head"
-import Image from "next/image"
 import { useEffect } from "react";
 import { useRouter } from 'next/router'
 import axios from "axios";
@@ -17,7 +16,7 @@ const Id: NextPage = () => {
                 try {
                     const response = await axios.get(`/api/getShortenedUrl/${id}`);
                     let urlToRedirect: string = response.data.result?.url
-                    if (urlToRedirect.startsWith("http" || "https")) {
+                    if (urlToRedirect.startsWith("http://" || "https://")) {
                         window.location.replace(response.data.result?.url)
                     }
                     window.location.replace("https://" + response.data.result?.url)
@@ -37,7 +36,8 @@ const Id: NextPage = () => {
                 <meta name="description" content="Redirecionando..." />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-
+            
+            <Box background="default.white" height="100vh"></Box>
         </div >
     )
 }
