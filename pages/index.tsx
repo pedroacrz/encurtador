@@ -69,9 +69,8 @@ const Home: NextPage = () => {
                 <Box key={index} backgroundColor="default.white" color="default.zinc" mt="5" width="100%" height="45px" borderRadius="6" display="flex" justifyContent="space-between" alignItems="center" px="10">
                   <Text fontWeight="semibold">{url.url}</Text>
                   <Box display="flex" alignItems="center">
-                    <Text mr="5" fontWeight="bold" color="default.primary" ref={textAreaRef}>http://localhost:3000/{url.shortened_url}</Text>
-                    <CopyToClipboard text={`http://localhost:3000/${url.shortened_url}`}
-                      onCopy={() => alert("copiado")}>
+                    <Text mr="5" fontWeight="bold" color="default.primary" ref={textAreaRef}>{window.location.href}{url.shortened_url}</Text>
+                    <CopyToClipboard text={`${window.location.href}${url.shortened_url}`}>
                       <Button backgroundColor="default.primary" width="100px" height="32px" color="default.white" >Copiar</Button>
                     </CopyToClipboard>
                   </Box>

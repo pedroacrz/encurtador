@@ -16,7 +16,6 @@ export default async function handler(
 ) {
     if (req.method === "POST") {
         const { url } = req.body;
-        console.log(url)
         const uuid = randomUUID();
         const randomUrl = randomUUID().split("-", 1)[0];
         const shortened_url = `${randomUrl}`
