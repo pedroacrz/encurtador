@@ -16,8 +16,9 @@ const Id: NextPage = () => {
                 try {
                     const response = await axios.get(`/api/getShortenedUrl/${id}`);
                     let urlToRedirect: string = response.data.result?.url
-                    if (urlToRedirect.startsWith("http://" || "https://")) {
+                    if (urlToRedirect.startsWith("http://") || urlToRedirect.startsWith("https://")) {
                         window.location.replace(response.data.result?.url)
+                        return;
                     }
                     window.location.replace("https://" + response.data.result?.url)
                 } catch (error) {
@@ -36,7 +37,7 @@ const Id: NextPage = () => {
                 <meta name="description" content="Redirecionando..." />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            
+
             <Box background="default.white" height="100vh"></Box>
         </div >
     )
