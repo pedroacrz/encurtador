@@ -58,20 +58,28 @@ export async function getServerSideProps(context: any) {
     console.time("a")
     let results = await mysql.query(`select * from shortened_links where shortened_url = "${context.params.id}"`);
     console.timeEnd("a")
-
-    let urlToRedirect: string = results[0]?.url
-    if (urlToRedirect.startsWith("http://") || urlToRedirect.startsWith("https://")) {
-        res.setHeader("location", urlToRedirect);
+    if (results.length > 0) {
+        let urlToRedirect: string = results[0]?.url
+        if (urlToRedirect.startsWith("http://") || urlToRedirect.startsWith("https://")) {
+            res.setHeader("location", urlToRedirect);
+            res.statusCode = 302;
+            res.end();
+            return {
+                props: {},
+            }
+        }
+        res.setHeader("location", "https://" + urlToRedirect);
         res.statusCode = 302;
-        res.end(); 
+        res.end();
+
         return {
             props: {},
         }
     }
-    res.setHeader("location", "https://" + urlToRedirect);
-    res.statusCode = 302;
-    res.end(); 
 
+    res.setHeader("location", "/");
+    res.statusCode = 302;
+    res.end();
     return {
         props: {},
     }
