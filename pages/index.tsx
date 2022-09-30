@@ -35,49 +35,44 @@ const Home: NextPage = () => {
         <meta name="description" content="Encurtador de url" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-
-      <Box backgroundColor="default.zinc" minH="100vh" color="default.white" px="36" pt="10" pb="20">
+      <Box backgroundColor="default.zinc" minH="100vh" color="default.white" px={["10px", "10px", "36"]} pt="5" pb="20">
         <Box maxWidth="1000px" margin="0 auto">
-
           <Box as="header">
             <Text fontSize="2xl" fontWeight="thin">ENCURTADOR</Text>
           </Box>
-
-          <Box as="main" mt="28">
-            <Grid gap="10" gridTemplateColumns={["1fr", "1fr 1fr"]}>
-              <GridItem display="flex" justifyContent="center">
-                <Text fontSize="5xl" mt="10" fontWeight="bold" textTransform="uppercase" marginTop="28" >Encurte seu link de maneira <Text as="span" color="default.primary">rápida</Text>  e <Text as="span" color="default.primary">fácil</Text>!</Text>
+          <Box as="main">
+            <Text fontSize={["3xl", "5xl", "5xl"]} mt="10" fontWeight="bold" textTransform="uppercase" marginTop="28" >Encurte seu link de maneira <Text as="span" color="default.primary">rápida</Text>  e <Text as="span" color="default.primary">fácil</Text>!</Text>
+          </Box>
+          <Box as="section">
+            <Grid backgroundColor="default.blue" mt="20" gridTemplateColumns={["1fr", "6fr 1fr"]} gap="2" width="100%" borderRadius="10" alignItems="center" py="4" px="4">
+              <GridItem>
+                <Input placeholder="Escreva sua url aqui..." backgroundColor="default.white" height="49px" color="default.zinc" onChange={(e) => setUrl(e.target.value)}></Input>
               </GridItem>
-              <GridItem justifyContent="center">
-                <Image src="/hero.svg" width="473" height="394" />
+              <GridItem>
+                <Button backgroundColor="default.primary" width="100%" mt={["5px", "0px"]} height="49px" onClick={() => sendUrl()}>Encurtar</Button>
               </GridItem>
             </Grid>
           </Box>
-
-
           <Box as="section">
-            <Box backgroundColor="default.blue" mt="20" width="100%" height="100" borderRadius="10" display="flex" justifyContent="space-between" alignItems="center" px="10">
-              <Input placeholder="Escreva sua url aqui..." width="70%" height="49px" backgroundColor="default.white" color="default.zinc" onChange={(e) => setUrl(e.target.value)}></Input>
-              <Button backgroundColor="default.primary" width="144px" height="49px" onClick={() => sendUrl()}>Encurtar</Button>
-            </Box>
-          </Box>
-
-          <Box as="section">
+            {shortenedLinks.length > 0 && (
+              <Text mt="5">Seus links encurtados:</Text>
+            )}
             {shortenedLinks && shortenedLinks.map((url, index) => {
               return (
-                <Box key={index} backgroundColor="default.white" color="default.zinc" mt="5" width="100%" height="45px" borderRadius="6" display="flex" justifyContent="space-between" alignItems="center" px="10">
-                  <Text fontWeight="semibold">{url.url}</Text>
-                  <Box display="flex" alignItems="center">
-                    <Text mr="5" fontWeight="bold" color="default.primary" ref={textAreaRef}>{window.location.href}{url.shortened_url}</Text>
+                <Box display="flex" flexDirection={["column", "column", "column", "row"]} p="3" key={index} backgroundColor="default.white" color="default.zinc" mt="2" width="100%" borderRadius="6" justifyContent="space-between"  >
+                  <Box width={["70%", "70%", "30%"]} >
+                    <Text overflow="hidden" fontWeight="semibold" whiteSpace="nowrap" style={{ textOverflow: "ellipsis" }}>{url.url}</Text>
+                  </Box>
+                  <Box alignItems={["", "", "", "center"]} display="flex" flexDirection={["column", "column", "column", "row"]}>
+                    <Text as="a" mt={["5", "5", "5", "0"]} href={`${window.location.href}${url.shortened_url}`} cursor="pointer" target="_blank" mr="5" fontWeight="bold" color="default.primary" ref={textAreaRef}>{window.location.href}{url.shortened_url}</Text>
                     <CopyToClipboard text={`${window.location.href}${url.shortened_url}`}>
-                      <Button backgroundColor="default.primary" width="100px" height="32px" color="default.white" >Copiar</Button>
+                      <Button mt={2} backgroundColor="default.primary" width="100%" height="32px" color="default.white" >Copiar</Button>
                     </CopyToClipboard>
                   </Box>
+
                 </Box>
               )
             })}
-
           </Box>
         </Box>
       </Box>
